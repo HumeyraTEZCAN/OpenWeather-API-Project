@@ -1,5 +1,4 @@
-package com.usmertihsan.Homework3.gen.exceptions;
-
+package com.humeyratezcan.bitirmeprojesi.gen.exceptions;
 public interface BaseErrorMessage {
 
     String getMessage();
