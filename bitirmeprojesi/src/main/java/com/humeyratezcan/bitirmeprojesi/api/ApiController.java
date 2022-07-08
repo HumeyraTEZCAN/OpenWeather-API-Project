@@ -31,7 +31,7 @@ public class ApiController {
     @PatchMapping("saveCityCoordinates")
     public ResponseEntity<CtyCity> saveCityCoordinates(@RequestParam String cityName){
 
-        String url = "http://api.openweathermap.org/geo/1.0/direct?q="+cityName+"&limit=1&appid=8a997ddd116acc93f07afc022be12aa6";
+        String url = "http://api.openweathermap.org/geo/1.0/direct?q="+cityName+"&limit=1&appid={API-KEY}";
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
@@ -76,7 +76,7 @@ public class ApiController {
         }
 
 
-        String url = "http://api.openweathermap.org/data/2.5/air_pollution/history?lat="+city.getCityLatitude().toString()+"8&lon="+city.getCityLongitude().toString()+"&start="+start.toString()+"&end="+end.toString()+"&appid=8a997ddd116acc93f07afc022be12aa6";
+        String url = "http://api.openweathermap.org/data/2.5/air_pollution/history?lat="+city.getCityLatitude().toString()+"8&lon="+city.getCityLongitude().toString()+"&start="+start.toString()+"&end="+end.toString()+"&appid={API-KEY}";
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
