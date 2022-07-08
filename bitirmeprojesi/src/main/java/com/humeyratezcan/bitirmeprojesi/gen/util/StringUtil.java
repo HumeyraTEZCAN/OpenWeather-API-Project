@@ -1,4 +1,4 @@
-package com.usmertihsan.Homework3.gen.util;
+package com.humeyratezcan.bitirmeprojesi.gen.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.util.StringUtils;
