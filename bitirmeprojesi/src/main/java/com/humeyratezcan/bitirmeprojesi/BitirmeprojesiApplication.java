@@ -13,6 +13,21 @@ public class BitirmeprojesiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BitirmeprojesiApplication.class, args);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 }

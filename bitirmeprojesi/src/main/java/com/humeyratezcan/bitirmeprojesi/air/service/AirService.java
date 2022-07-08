@@ -47,6 +47,7 @@ public class AirService {
     public Air updateAirPollution(Long airId, Double carbonMonoxide, Double ozone, Double sulphurDioxide, Date startDate, Date endDate)
     {
         Air air = airEntityService.findById(airId);
+
         air.setCarbonMonoxide(carbonMonoxide);
         air.setOzone(ozone);
         air.setSulphurDioxide(sulphurDioxide);

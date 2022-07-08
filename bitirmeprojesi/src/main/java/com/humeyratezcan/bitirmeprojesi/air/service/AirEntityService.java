@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class AirEntityService extends BaseEntityService<Air, AirDao> {
     @Autowired
@@ -17,6 +19,8 @@ public class AirEntityService extends BaseEntityService<Air, AirDao> {
     public Air findByCarbonMonoxide(Double carbonMonoxide){return getDao().findByCarbonMonoxide(carbonMonoxide);}
 
     public Air findByCity(CtyCity city){return getDao().findByCity(city);}
+
+    //public Boolean existsByEndDateAndStartDate(Date date){return getDao().existsByEndDateAndStartDate(date);}
 
 
 

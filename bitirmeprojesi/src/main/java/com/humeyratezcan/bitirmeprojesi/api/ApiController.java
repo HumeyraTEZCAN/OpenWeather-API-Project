@@ -12,14 +12,18 @@ import org.json.JSONObject;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Bahadır Memiş
@@ -33,6 +37,8 @@ public class ApiController {
     private final CtyCityService cityService;
 
     private final AirService airService;
+
+    private final ApiService apiService;
 
 
     @PatchMapping("saveCityCoordinates")
@@ -58,10 +64,12 @@ public class ApiController {
 
     @PatchMapping("saveAirPollution")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
-    public ResponseEntity<Air> saveAirPollution(@RequestParam(required = true) String cityName, @RequestParam(required = false) Date startDate,@RequestParam(required = false)  Date endDate){
+    public ResponseEntity<Air> saveAirPollution(@RequestParam(required = true) String cityName, @RequestParam(required = false) Date startDate,@RequestParam(required = false)  Date endDate) throws ParseException {
 
         CtyCity city = cityService.findByCityName(cityName);
         Long start, end;
+        String oldestDate="2020/11/27";
+        Date lastdate =new SimpleDateFormat("yyyy/MM/dd").parse(oldestDate);
 
         if(startDate == null | endDate == null){
             Date today = new Date();
@@ -71,6 +79,9 @@ public class ApiController {
             start = last.getTime()/1000L;
 
 
+        }
+        else if(startDate.getTime() < lastdate.getTime() | endDate.getTime() < lastdate.getTime()){
+            throw  new RuntimeException("There is no available info for this date !!!");
         }
         else{
             start = startDate.getTime()/1000L;
@@ -88,30 +99,20 @@ public class ApiController {
         body = body.substring(j);
         Air air = airService.findByCity(city);
         JSONObject json = new JSONObject(body);
-        //Double longitude = Double.valueOf(json.getDouble("lon"));
-        //Double latitude =  Double.valueOf(json.getDouble("lat"));
         JSONArray airValues = (JSONArray) json.get("list");
-         //JSONObject components = airValues.
-         //ystem.out.println(components);
         Double avgCO = Double.valueOf(0);
         Double avgSO2 = Double.valueOf(0);
         Double avgO3 = Double.valueOf(0);
         for (int i = 0; i < airValues.length(); ++i) {
             JSONObject rec = airValues.getJSONObject(i);
             Double dt = rec.getDouble("dt");
-            System.out.println("dt burada:");
-            System.out.println(dt);
             JSONObject components = rec.getJSONObject("components");
-            System.out.println(components);
             Double co = components.getDouble("co");
-            System.out.println(co);
             Double o3 = components.getDouble("o3");
             Double so2 = components.getDouble("so2");
             avgCO += co;
             avgO3 += o3;
             avgSO2 += so2;
-            //String loc = rec.getString("loc");
-            // ...
         }
         avgCO = avgCO/airValues.length();
         avgO3 = avgCO/airValues.length();
@@ -120,13 +121,23 @@ public class ApiController {
 
         return ResponseEntity.ok(air);
     }
+    @GetMapping
+    public String getResults(){
+      String myResult = apiService.showJsonResults();
+      return myResult;
+
+    }
+   /* @GetMapping("/getResults")
+    public ResponseEntity findAllCities(){
+
+        List<CtyCity> cities = ctyCityService.findAllCities();
+        return new ResponseEntity<>(cities, HttpStatus.OK);
+    }
 
 
 
 
 
-
-/*
     @GetMapping("/mail-send-request-dto")
     public MailSendRequestDto getMailSendRequestDto(){
 

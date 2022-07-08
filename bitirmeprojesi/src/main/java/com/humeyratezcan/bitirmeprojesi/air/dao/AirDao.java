@@ -5,9 +5,13 @@ import com.humeyratezcan.bitirmeprojesi.air.entity.Air;
 import com.humeyratezcan.bitirmeprojesi.cty.entity.CtyCity;
 import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+
 @Repository
 public interface AirDao extends JpaRepositoryImplementation<Air,Long> {
     Air findByCarbonMonoxide(Double carbonMonoxide);
-
     Air findByCity(CtyCity city);
+
+    //Boolean existsByEndDateAndStartDate(Date date);
 }
