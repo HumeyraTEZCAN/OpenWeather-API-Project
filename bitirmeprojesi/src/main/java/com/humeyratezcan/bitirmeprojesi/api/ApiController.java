@@ -17,6 +17,8 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -31,6 +33,7 @@ public class ApiController {
     private final CtyCityService cityService;
 
     private final AirService airService;
+
 
     @PatchMapping("saveCityCoordinates")
     public ResponseEntity<CtyCity> saveCityCoordinates(@RequestParam String cityName){
@@ -54,13 +57,26 @@ public class ApiController {
     }
 
     @PatchMapping("saveAirPollution")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public String saveAirPollution(@RequestParam String cityName, Date startDate, Date endDate){
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    public ResponseEntity<Air> saveAirPollution(@RequestParam(required = true) String cityName, @RequestParam(required = false) Date startDate,@RequestParam(required = false)  Date endDate){
 
         CtyCity city = cityService.findByCityName(cityName);
+        Long start, end;
 
-        Long start = startDate.getTime()/1000L;
-        Long end =endDate.getTime()/1000L;
+        if(startDate == null | endDate == null){
+            Date today = new Date();
+            long lastWeek = System.currentTimeMillis() - (86400 * 7 * 1000);
+            Date last = new Date(lastWeek);
+            end = today.getTime()/1000L;
+            start = last.getTime()/1000L;
+
+
+        }
+        else{
+            start = startDate.getTime()/1000L;
+            end =endDate.getTime()/1000L;
+        }
+
 
         String url = "http://api.openweathermap.org/data/2.5/air_pollution/history?lat="+city.getCityLatitude().toString()+"8&lon="+city.getCityLongitude().toString()+"&start="+start.toString()+"&end="+end.toString()+"&appid=8a997ddd116acc93f07afc022be12aa6";
 
@@ -102,7 +118,7 @@ public class ApiController {
         avgSO2 = avgCO/airValues.length();
         air = airService.updateAirPollution(air.getId(), avgCO, avgO3, avgSO2 , startDate, endDate);
 
-        return body;
+        return ResponseEntity.ok(air);
     }
 
 

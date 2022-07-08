@@ -5,6 +5,7 @@ import com.humeyratezcan.bitirmeprojesi.gen.entity.BaseEntity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.ComponentScan;
 
 import javax.persistence.*;
