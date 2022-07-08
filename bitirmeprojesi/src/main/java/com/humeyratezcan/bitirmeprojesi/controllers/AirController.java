@@ -5,13 +5,10 @@ import com.humeyratezcan.bitirmeprojesi.air.dto.AirSaveRequestDto;
 import com.humeyratezcan.bitirmeprojesi.air.entity.Air;
 import com.humeyratezcan.bitirmeprojesi.air.service.AirService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.net.ssl.SSLEngineResult;
 import java.util.List;
 
 @RestController

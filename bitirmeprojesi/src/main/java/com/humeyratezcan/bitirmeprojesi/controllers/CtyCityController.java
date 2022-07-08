@@ -1,17 +1,14 @@
 package com.humeyratezcan.bitirmeprojesi.controllers;
 
-import com.humeyratezcan.bitirmeprojesi.air.entity.Air;
+
 import com.humeyratezcan.bitirmeprojesi.cty.dto.CtyCitySaveRequestDto;
 import com.humeyratezcan.bitirmeprojesi.cty.entity.CtyCity;
 import com.humeyratezcan.bitirmeprojesi.cty.service.CtyCityService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

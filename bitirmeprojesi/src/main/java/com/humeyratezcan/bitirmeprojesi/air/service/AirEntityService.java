@@ -20,8 +20,6 @@ public class AirEntityService extends BaseEntityService<Air, AirDao> {
 
     public Air findByCity(CtyCity city){return getDao().findByCity(city);}
 
-    //public Boolean existsByEndDateAndStartDate(Date date){return getDao().existsByEndDateAndStartDate(date);}
-
 
 
 }

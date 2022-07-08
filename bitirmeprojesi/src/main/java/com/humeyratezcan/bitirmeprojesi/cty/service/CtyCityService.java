@@ -5,11 +5,8 @@ import com.humeyratezcan.bitirmeprojesi.cty.dto.CtyCityDto;
 import com.humeyratezcan.bitirmeprojesi.cty.dto.CtyCitySaveRequestDto;
 import com.humeyratezcan.bitirmeprojesi.cty.entity.CtyCity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,8 +14,6 @@ import java.util.List;
 public class CtyCityService {
 
     private final CtyCityEntityService ctyCityEntityService;
-
-    //private final AirService airService;
 
 
     public CtyCityDto saveCityDto(CtyCitySaveRequestDto ctyCitySaveRequestDto) {

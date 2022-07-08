@@ -47,12 +47,8 @@ public class ApiService {
         json.put("Results", resultsarray);
 
         message = json.toString();
-
-        // message
-        // {"course":[{"id":3,"information":"test","name":"course1"}],"name":"student"}
         return message;
     }
-
 
 
 

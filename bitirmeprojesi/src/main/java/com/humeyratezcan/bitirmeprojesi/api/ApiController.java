@@ -1,8 +1,6 @@
 package com.humeyratezcan.bitirmeprojesi.api;
 import com.humeyratezcan.bitirmeprojesi.air.entity.Air;
 import com.humeyratezcan.bitirmeprojesi.air.service.AirService;
-import com.humeyratezcan.bitirmeprojesi.cty.converter.CtyCityMapper;
-import com.humeyratezcan.bitirmeprojesi.cty.dto.CtyCitySaveRequestDto;
 import com.humeyratezcan.bitirmeprojesi.cty.entity.CtyCity;
 import com.humeyratezcan.bitirmeprojesi.cty.service.CtyCityService;
 import org.json.JSONArray;
@@ -10,25 +8,14 @@ import org.json.JSONArray;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 
-/**
- * @author Bahadır Memiş
- * @since 1.0.0
- */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/api-controller")
@@ -127,59 +114,5 @@ public class ApiController {
       return myResult;
 
     }
-   /* @GetMapping("/getResults")
-    public ResponseEntity findAllCities(){
 
-        List<CtyCity> cities = ctyCityService.findAllCities();
-        return new ResponseEntity<>(cities, HttpStatus.OK);
-    }
-
-
-
-
-
-    @GetMapping("/mail-send-request-dto")
-    public MailSendRequestDto getMailSendRequestDto(){
-
-        String url = "http://localhost:8081/api/v1/mail-sender/mail-send-request-dto";
-        RestTemplate restTemplate = new RestTemplate();
-
-        ResponseEntity<MailSendRequestDto> responseEntity = restTemplate.getForEntity(url, MailSendRequestDto.class);
-
-        return responseEntity.getBody();
-    }
-
-    @PostMapping("/mail-sender")
-    public boolean sendMail(@RequestBody MailSendRequestDto mailSendRequestDto){
-
-        String url = "http://localhost:8081/api/v1/mail-sender";
-
-        RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-
-        HttpEntity<MailSendRequestDto> request = new HttpEntity<>(mailSendRequestDto);
-
-        ResponseEntity<Boolean> responseEntity;
-        try {
-            responseEntity = restTemplate.exchange(url, HttpMethod.POST, request, Boolean.class);
-        } catch (Exception e){
-            throw new RuntimeException("Error!");
-        }
-//        ResponseEntity<Boolean> responseEntity = restTemplate.postForEntity(url, mailSendRequestDto, Boolean.class);
-
-        Boolean isSuccess = responseEntity.getBody();
-
-        return isSuccess;
-    }
-
-    private SimpleClientHttpRequestFactory getClientHttpRequestFactory()
-    {
-        SimpleClientHttpRequestFactory clientHttpRequestFactory
-                = new SimpleClientHttpRequestFactory();
-        //Connect timeout
-        clientHttpRequestFactory.setConnectTimeout(5_000);
-
-        //Read timeout
-        clientHttpRequestFactory.setReadTimeout(5_000);
-        return clientHttpRequestFactory;
-    }*/
 }
